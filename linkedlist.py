@@ -48,7 +48,7 @@ class LinkedList(LinkedListInterface):
     def __init__(self, limit=None) -> None:
         """
         Constructor for the Linked List data structure.
-        :param limit:
+        :param limit: int
         """
         if not limit: self.limit = float("inf")
         else: self.limit = limit
@@ -65,7 +65,7 @@ class LinkedList(LinkedListInterface):
         while current is not None:
             data.append(current.data)
             current = current.next
-        return "LinkedList has a size of {}\n{}".format(self._size, data)
+        return "Linked List has a size of {} and contains the following items:\n{}".format(self._size, data)
 
     def __repr__(self) -> str:
         """
@@ -80,6 +80,8 @@ class LinkedList(LinkedListInterface):
         :param data: Any
         :return: None
         """
+        if data is None:
+            raise ValueError("Cannot append {} to the Linked List.".format(data))
         if self._size == self.limit:
             raise IndexError("Cannot append {} to Linked List as it is full.".format(data))
         self.head = Node(data, self.head)
@@ -87,7 +89,7 @@ class LinkedList(LinkedListInterface):
 
     def remove(self, data: Any) -> Any:
         """
-        Removes the data from the Linked List data structure.
+        Removes and returns the data from the Linked List data structure.
         :param data: Any
         :return: Any
         """
@@ -122,7 +124,7 @@ class LinkedList(LinkedListInterface):
         :param data: Any
         :return: bool
         """
-        if self.is_empty(): raise IndexError("Linked List does not contain {} as it is empty.".format(self._size))
+        if self.is_empty(): raise IndexError("Cannot search an empty Linked List.")
         current = self.head
         while current is not None:
             if data == current.data:
