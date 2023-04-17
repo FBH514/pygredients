@@ -2,7 +2,7 @@ from node import Node
 from typing import Any
 from abc import abstractmethod, ABC
 
-class LinkedListInterface(ABC):
+class AdapterLinkedListInterface(ABC):
     """Defines the interface for the Linked List data structure."""
 
     @abstractmethod
@@ -42,7 +42,7 @@ class LinkedListInterface(ABC):
         pass
 
 
-class LinkedList(LinkedListInterface):
+class AdapterLinkedList(AdapterLinkedListInterface):
     """Defines a Linked List data structure."""
 
     def __init__(self, limit=None) -> None:

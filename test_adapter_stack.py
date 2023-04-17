@@ -1,5 +1,5 @@
 from unittest import TestCase
-from stack import Stack
+from adapter_stack import AdapterStack as Stack
 
 
 class TestStack(TestCase):

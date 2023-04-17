@@ -4,7 +4,7 @@ from typing import Any
 class Node:
     """Defines a Node object used in data structures."""
 
-    def __init__(self, data: Any, _next: 'Node') -> None:
+    def __init__(self, data: Any, _next: 'Node' = None) -> None:
         """
         Constructor for the Node object.
         :param data: Any

@@ -1,8 +1,8 @@
 from unittest import TestCase
-from linkedlist import LinkedList
+from adapter_linkedlist import AdapterLinkedList as LinkedList
 
 
-class TestLinkedList(TestCase):
+class TestAdapterLinkedList(TestCase):
     """Tests the Linked List data structure."""
 
     def setUp(self) -> None:
