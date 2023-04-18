@@ -30,7 +30,7 @@ class AdapterQueueInterface(ABC):
         pass
 
     @abstractmethod
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         pass
 
     @abstractmethod
@@ -139,7 +139,7 @@ class AdapterQueue(AdapterQueueInterface):
             raise IndexError("Cannot peek an empty Queue.")
         return self.head.data
 
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         """
         Returns whether the Queue data structure contains the data.
         :param data: Any
@@ -169,11 +169,3 @@ class AdapterQueue(AdapterQueueInterface):
         :return: bool
         """
         return self._size == 0
-
-
-if __name__ == '__main__':
-    queue = AdapterQueue()
-    data = [1, 2, 3, 4, 5]
-    for _ in data:
-        queue.enqueue(_)
-    print(queue.head)

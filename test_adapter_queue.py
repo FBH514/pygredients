@@ -24,7 +24,7 @@ class TestAdapterQueue(TestCase):
 
     def test_limit(self) -> None:
         """
-        Tests the limit property of the Linked List data structure.
+        Tests the limit property of the Queue data structure.
         :return: None
         """
         self.assertTrue(self.queue.limit == float("inf"))
@@ -76,21 +76,21 @@ class TestAdapterQueue(TestCase):
             self.queue.dequeue()
         self.assertRaises(IndexError, self.queue.peek)
 
-    def test_contain(self) -> None:
+    def test_contains(self) -> None:
         """
         Tests the contain method of the Queue data structure.
         :return: None
         """
-        self.assertTrue(self.queue.contain(1))
-        self.assertTrue(self.queue.contain(2))
-        self.assertTrue(self.queue.contain(3))
-        self.assertTrue(self.queue.contain(4))
-        self.assertTrue(self.queue.contain(5))
-        self.assertFalse(self.queue.contain(6))
-        self.assertRaises(ValueError, self.queue.contain, None)
+        self.assertTrue(self.queue.contains(1))
+        self.assertTrue(self.queue.contains(2))
+        self.assertTrue(self.queue.contains(3))
+        self.assertTrue(self.queue.contains(4))
+        self.assertTrue(self.queue.contains(5))
+        self.assertFalse(self.queue.contains(6))
+        self.assertRaises(ValueError, self.queue.contains, None)
         for _ in range(5):
             self.queue.dequeue()
-        self.assertRaises(IndexError, self.queue.contain, 1)
+        self.assertRaises(IndexError, self.queue.contains, 1)
 
     def test_size(self) -> None:
         """
