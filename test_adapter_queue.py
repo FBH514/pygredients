@@ -1,6 +1,7 @@
 from unittest import TestCase
 from adapter_queue import AdapterQueue as Queue
 
+
 class TestAdapterQueue(TestCase):
     """Tests the Queue data structure."""
 
