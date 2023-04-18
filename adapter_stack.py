@@ -30,7 +30,7 @@ class AdapterStackInterface(ABC):
         pass
 
     @abstractmethod
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         pass
 
     @abstractmethod
@@ -53,8 +53,8 @@ class AdapterStack(AdapterStackInterface):
         Constructor for the Stack data structure.
         :param limit: int
         """
-        if not limit: self.limit = float("inf")
-        else: self.limit = limit
+        if not limit: self._limit = float("inf")
+        else: self._limit = limit
         self._size: int = 0
         self.head = None
 
@@ -77,6 +77,28 @@ class AdapterStack(AdapterStackInterface):
         """
         return "Stack({})".format(self._size)
 
+    @property
+    def limit(self) -> int:
+        """
+        Returns the limit of the Stack data structure.
+        :return: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, value: int) -> None:
+        """
+        Sets the limit of the Stack data structure.
+        :param value: int
+        :return: None
+        """
+        if not value > 0:
+            raise ValueError("Cannot set the limit to {} as it is not a valid value.".format(value))
+        elif value < self._size:
+            raise ValueError(
+                "Cannot set the limit to {} as it is smaller than the current size of the Stack.".format(value))
+        self._limit = value
+
     def push(self, data: Any) -> None:
         """
         Pushes the data to the Stack data structure.
@@ -85,7 +107,7 @@ class AdapterStack(AdapterStackInterface):
         """
         if data is None:
             raise ValueError("Cannot push {} to the Stack.".format(data))
-        if self._size == self.limit:
+        if self._size == self._limit:
             raise IndexError("Cannot push {} to Stack as it is full.".format(data))
         self.head = Node(data, self.head)
         self._size += 1
@@ -111,7 +133,7 @@ class AdapterStack(AdapterStackInterface):
             raise IndexError("Cannot peek an empty Stack.")
         return self.head.data
 
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         """
         Returns whether the Stack data structure contains the data.
         :param data: Any
@@ -119,6 +141,8 @@ class AdapterStack(AdapterStackInterface):
         """
         if self.is_empty():
             raise IndexError("Cannot search an empty Stack.")
+        if data is None:
+            raise ValueError("Cannot search for {} in the Stack.".format(data))
         current = self.head
         while current is not None:
             if data == current.data:

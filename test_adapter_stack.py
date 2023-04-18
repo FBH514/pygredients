@@ -23,6 +23,17 @@ class TestStack(TestCase):
         self.assertTrue(self.stack.head is not None)
         self.assertTrue(self.stack._size == 5)
 
+    def test_limit(self) -> None:
+        """
+        Tests the limit property of the Stack data structure.
+        :return: None
+        """
+        self.assertTrue(self.stack.limit == float("inf"))
+        self.stack.limit = 10
+        self.assertTrue(self.stack.limit == 10)
+        self.assertRaises(ValueError, setattr, self.stack, "limit", -1)
+        self.assertRaises(ValueError, setattr, self.stack, "limit", 4)
+
     def test_push(self) -> None:
         """
         Tests the push method of the Stack data structure.
@@ -31,6 +42,9 @@ class TestStack(TestCase):
         self.stack.push(6)
         self.assertTrue(self.stack._size == 6)
         self.assertTrue(self.stack.head.data == 6)
+        self.assertRaises(ValueError, self.stack.push, None)
+        self.stack.limit = 6
+        self.assertRaises(IndexError, self.stack.push, 7)
 
     def test_pop(self) -> None:
         """
@@ -46,6 +60,11 @@ class TestStack(TestCase):
         self.stack.pop()
         self.assertTrue(self.stack._size == 2)
         self.assertTrue(self.stack.head.data == 2)
+        self.stack.pop()
+        self.assertTrue(self.stack._size == 1)
+        self.assertTrue(self.stack.head.data == 1)
+        self.stack.pop()
+        self.assertRaises(IndexError, self.stack.pop)
 
     def test_peek(self) -> None:
         """
@@ -54,18 +73,25 @@ class TestStack(TestCase):
         """
         self.assertTrue(self.stack.peek() == 5)
         self.assertTrue(self.stack._size == 5)
+        for _ in range(5):
+            self.stack.pop()
+        self.assertRaises(IndexError, self.stack.peek)
 
-    def test_contain(self) -> None:
+    def test_contains(self) -> None:
         """
         Tests the contain method of the Stack data structure.
         :return: None
         """
-        self.assertTrue(self.stack.contain(5))
-        self.assertTrue(self.stack.contain(4))
-        self.assertTrue(self.stack.contain(3))
-        self.assertTrue(self.stack.contain(2))
-        self.assertTrue(self.stack.contain(1))
-        self.assertFalse(self.stack.contain(6))
+        self.assertTrue(self.stack.contains(5))
+        self.assertTrue(self.stack.contains(4))
+        self.assertTrue(self.stack.contains(3))
+        self.assertTrue(self.stack.contains(2))
+        self.assertTrue(self.stack.contains(1))
+        self.assertFalse(self.stack.contains(6))
+        self.assertRaises(ValueError, self.stack.contains, None)
+        for _ in range(5):
+            self.stack.pop()
+        self.assertRaises(IndexError, self.stack.contains, 1)
 
     def test_size(self) -> None:
         """
@@ -84,9 +110,6 @@ class TestStack(TestCase):
         :return: None
         """
         self.assertFalse(self.stack.is_empty())
-        self.stack.pop()
-        self.stack.pop()
-        self.stack.pop()
-        self.stack.pop()
-        self.stack.pop()
+        for _ in range(5):
+            self.stack.pop()
         self.assertTrue(self.stack.is_empty())
