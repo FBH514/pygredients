@@ -30,7 +30,7 @@ class AdapterLinkedListInterface(ABC):
         pass
 
     @abstractmethod
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         pass
 
     @abstractmethod
@@ -141,10 +141,10 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         :return: Any
         """
         if self.is_empty():
-            raise ValueError("Cannot peek an empty Linked List.")
+            raise IndexError("Cannot peek an empty Linked List.")
         return self.head.data
 
-    def contain(self, data: Any) -> bool:
+    def contains(self, data: Any) -> bool:
         """
         Returns whether the Linked List data structure contains the data.
         :param data: Any

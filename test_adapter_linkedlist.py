@@ -74,22 +74,22 @@ class TestAdapterLinkedList(TestCase):
         self.assertTrue(self.linked_list._size == 5)
         for item in range(1, 6):
             self.linked_list.remove(item)
-        self.assertRaises(ValueError, self.linked_list.peek)
+        self.assertRaises(IndexError, self.linked_list.peek)
 
-    def test_contain(self) -> None:
+    def test_contains(self) -> None:
         """
         Tests the contain method of the Linked List data structure.
         :return: None
         """
-        self.assertTrue(self.linked_list.contain(5))
-        self.assertTrue(self.linked_list.contain(1))
-        self.assertTrue(self.linked_list.contain(3))
-        self.assertFalse(self.linked_list.contain(6))
-        self.assertFalse(self.linked_list.contain(0))
-        self.assertRaises(ValueError, self.linked_list.contain, None)
+        self.assertTrue(self.linked_list.contains(5))
+        self.assertTrue(self.linked_list.contains(1))
+        self.assertTrue(self.linked_list.contains(3))
+        self.assertFalse(self.linked_list.contains(6))
+        self.assertFalse(self.linked_list.contains(0))
+        self.assertRaises(ValueError, self.linked_list.contains, None)
         for item in range(1, 6):
             self.linked_list.remove(item)
-        self.assertRaises(IndexError, self.linked_list.contain, 1)
+        self.assertRaises(IndexError, self.linked_list.contains, 1)
 
     def test_size(self) -> None:
         """
