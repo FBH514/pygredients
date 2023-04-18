@@ -22,6 +22,17 @@ class TestAdapterQueue(TestCase):
         self.assertTrue(self.queue.head is not None)
         self.assertTrue(self.queue._size == 5)
 
+    def test_limit(self) -> None:
+        """
+        Tests the limit property of the Linked List data structure.
+        :return: None
+        """
+        self.assertTrue(self.queue.limit == float("inf"))
+        self.queue.limit = 10
+        self.assertTrue(self.queue.limit == 10)
+        self.assertRaises(ValueError, setattr, self.queue, "limit", -1)
+        self.assertRaises(ValueError, setattr, self.queue, "limit", 4)
+
     def test_enqueue(self) -> None:
         """
         Tests the enqueue method of the Queue data structure.
@@ -30,6 +41,9 @@ class TestAdapterQueue(TestCase):
         self.queue.enqueue(6)
         self.assertTrue(self.queue._size == 6)
         self.assertTrue(self.queue.head.data == 1)
+        self.assertRaises(ValueError, self.queue.enqueue, None)
+        self.queue.limit = 6
+        self.assertRaises(IndexError, self.queue.enqueue, 7)
 
     def test_dequeue(self) -> None:
         """
@@ -39,6 +53,17 @@ class TestAdapterQueue(TestCase):
         self.queue.dequeue()
         self.assertTrue(self.queue._size == 4)
         self.assertTrue(self.queue.head.data == 2)
+        self.queue.dequeue()
+        self.assertTrue(self.queue._size == 3)
+        self.assertTrue(self.queue.head.data == 3)
+        self.queue.dequeue()
+        self.assertTrue(self.queue._size == 2)
+        self.assertTrue(self.queue.head.data == 4)
+        self.queue.dequeue()
+        self.assertTrue(self.queue._size == 1)
+        self.assertTrue(self.queue.head.data == 5)
+        self.queue.dequeue()
+        self.assertRaises(IndexError, self.queue.dequeue)
 
     def test_peek(self) -> None:
         """
@@ -47,6 +72,9 @@ class TestAdapterQueue(TestCase):
         """
         self.assertTrue(self.queue.peek() == 1)
         self.assertTrue(self.queue._size == 5)
+        for _ in range(5):
+            self.queue.dequeue()
+        self.assertRaises(IndexError, self.queue.peek)
 
     def test_contain(self) -> None:
         """
@@ -59,6 +87,10 @@ class TestAdapterQueue(TestCase):
         self.assertTrue(self.queue.contain(4))
         self.assertTrue(self.queue.contain(5))
         self.assertFalse(self.queue.contain(6))
+        self.assertRaises(ValueError, self.queue.contain, None)
+        for _ in range(5):
+            self.queue.dequeue()
+        self.assertRaises(IndexError, self.queue.contain, 1)
 
     def test_size(self) -> None:
         """

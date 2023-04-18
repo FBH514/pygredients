@@ -53,8 +53,8 @@ class AdapterQueue(AdapterQueueInterface):
         Constructor for the Queue data structure.
         :param limit: int
         """
-        if not limit: self.limit = float("inf")
-        else: self.limit = limit
+        if not limit: self._limit = float("inf")
+        else: self._limit = limit
         self._size: int = 0
         self.head = None
 
@@ -69,6 +69,28 @@ class AdapterQueue(AdapterQueueInterface):
             data.append(current.data)
             current = current.next
         return "Queue has a size of {} and contains the following items:\n{}".format(self._size, data)
+
+    @property
+    def limit(self) -> int:
+        """
+        Returns the limit of the Queue data structure.
+        :return: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, value: int) -> None:
+        """
+        Sets the limit of the Queue data structure.
+        :param value: int
+        :return: None
+        """
+        if not value > 0:
+            raise ValueError("Cannot set the limit to {} as it is not a valid value.".format(value))
+        elif value < self._size:
+            raise ValueError(
+                "Cannot set the limit to {} as it is smaller than the current size of the Queue.".format(value))
+        self._limit = value
 
     def __repr__(self) -> str:
         """
@@ -85,7 +107,7 @@ class AdapterQueue(AdapterQueueInterface):
         """
         if data is None:
             raise ValueError("Cannot enqueue {} in the Queue.".format(data))
-        if self._size == self.limit:
+        if self._size == self._limit:
             raise IndexError("Cannot append {} to the Queue as it is full.".format(data))
         if self.head is None:
             self.head = Node(data)
@@ -123,6 +145,10 @@ class AdapterQueue(AdapterQueueInterface):
         :param data: Any
         :return: bool
         """
+        if self.is_empty():
+            raise IndexError("Cannot search an empty Queue.")
+        if data is None:
+            raise ValueError("Cannot search for {} in the Queue.".format(data))
         current = self.head
         while current is not None:
             if data == current.data:
