@@ -2,6 +2,7 @@ from node import Node
 from typing import Any
 from abc import abstractmethod, ABC
 
+
 class AdapterLinkedListInterface(ABC):
     """Defines the interface for the Linked List data structure."""
 
