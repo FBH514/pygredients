@@ -43,7 +43,10 @@ class AdapterQueueInterface(ABC):
 
 
 class AdapterQueue(AdapterQueueInterface):
-    """Defines a Queue data structure."""
+    """
+    Defines a Queue data structure.
+    Contracted by the Queue interface.
+    """
 
     def __init__(self, limit=None) -> None:
         """

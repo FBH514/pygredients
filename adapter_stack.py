@@ -43,7 +43,10 @@ class AdapterStackInterface(ABC):
 
 
 class AdapterStack(AdapterStackInterface):
-    """Defines a Stack data structure."""
+    """
+    Defines a Stack data structure.
+    Contracted by the Stack interface.
+    """
 
     def __init__(self, limit=None) -> None:
         """
@@ -76,12 +79,12 @@ class AdapterStack(AdapterStackInterface):
 
     def push(self, data: Any) -> None:
         """
-        Pushes the data on top of the Stack data structure.
+        Pushes the data to the Stack data structure.
         :param data: Any
         :return: None
         """
         if data is None:
-            raise ValueError("Cannot add {} to the Stack.".format(data))
+            raise ValueError("Cannot push {} to the Stack.".format(data))
         if self._size == self.limit:
             raise IndexError("Cannot push {} to Stack as it is full.".format(data))
         self.head = Node(data, self.head)
@@ -92,6 +95,8 @@ class AdapterStack(AdapterStackInterface):
         Pops and returns the first item in the Stack data structure.
         :return: Any
         """
+        if self.is_empty():
+            raise IndexError("Cannot pop {} from an empty Stack.")
         data = self.head.data
         self.head = self.head.next
         self._size -= 1

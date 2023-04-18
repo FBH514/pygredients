@@ -43,15 +43,18 @@ class AdapterLinkedListInterface(ABC):
 
 
 class AdapterLinkedList(AdapterLinkedListInterface):
-    """Defines a Linked List data structure."""
+    """
+    Defines a Linked List data structure.
+    Contracted by the Linked List interface.
+    """
 
     def __init__(self, limit=None) -> None:
         """
         Constructor for the Linked List data structure.
         :param limit: int
         """
-        if not limit: self.limit = float("inf")
-        else: self.limit = limit
+        if not limit: self._limit = float("inf")
+        else: self._limit = limit
         self._size: int = 0
         self.head = None
 
@@ -74,6 +77,27 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         """
         return "LinkedList({})".format(self._size)
 
+    @property
+    def limit(self) -> int:
+        """
+        Returns the limit of the Linked List data structure.
+        :return: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, value: int) -> None:
+        """
+        Sets the limit of the Linked List data structure.
+        :param value: int
+        :return: None
+        """
+        if not value > 0:
+            raise ValueError("Cannot set the limit to {} as it is not a valid value.".format(value))
+        elif value < self._size:
+            raise ValueError("Cannot set the limit to {} as it is smaller than the current size of the Linked List.".format(value))
+        self._limit = value
+
     def append(self, data: Any) -> None:
         """
         Appends the data to the Linked List data structure.
@@ -82,7 +106,7 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         """
         if data is None:
             raise ValueError("Cannot append {} to the Linked List.".format(data))
-        if self._size == self.limit:
+        if self._size == self._limit:
             raise IndexError("Cannot append {} to Linked List as it is full.".format(data))
         self.head = Node(data, self.head)
         self._size += 1
@@ -95,6 +119,8 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         """
         if self.is_empty():
             raise IndexError("Cannot remove {} from an empty Linked List.".format(data))
+        if data is None:
+            raise ValueError("Cannot remove {} from the Linked List.".format(data))
         current = self.head
         previous = None
         while current is not None:
@@ -107,7 +133,7 @@ class AdapterLinkedList(AdapterLinkedListInterface):
                 return current.data
             previous = current
             current = current.next
-        raise IndexError("Cannot remove {} from Linked List as it does not exist.".format(data))
+        raise ValueError("Cannot remove {} from Linked List as it does not exist.".format(data))
 
     def peek(self) -> Any:
         """
@@ -115,7 +141,7 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         :return: Any
         """
         if self.is_empty():
-            raise IndexError("Cannot peek an empty Linked List.")
+            raise ValueError("Cannot peek an empty Linked List.")
         return self.head.data
 
     def contain(self, data: Any) -> bool:
@@ -124,7 +150,10 @@ class AdapterLinkedList(AdapterLinkedListInterface):
         :param data: Any
         :return: bool
         """
-        if self.is_empty(): raise IndexError("Cannot search an empty Linked List.")
+        if self.is_empty():
+            raise IndexError("Cannot search an empty Linked List.")
+        if data is None:
+            raise ValueError("Cannot search for {} in the Linked List.".format(data))
         current = self.head
         while current is not None:
             if data == current.data:
