@@ -1,4 +1,7 @@
 # Pygredients
+
+Version 0.1.2
+
 ##### Pygredients is an open-source Python library for data structures and algorithms available on PyPi. 🍎🍊🍋🫐
 
 ## Installation
@@ -41,7 +44,7 @@ ll.is_empty() # False
 print(ll) # [1, 3]
 
 # Limit the length of the linked list
-ll.limit(2)
+ll.limit = 2
 ll.append(4) # ValueError: Cannot append 4 to Linked List as it is full.
 ```
 
@@ -74,7 +77,7 @@ stack.is_empty() # False
 print(stack) # [1, 2]
 
 # Limit the length of the stack
-stack.limit(2)
+stack.limit = 2
 stack.push(4) # ValueError: Cannot push 4 to Stack as it is full.
 ```
 
@@ -107,6 +110,6 @@ queue.is_empty() # False
 print(queue) # [2, 3]
 
 # Limit the length of the queue
-queue.limit(2) 
+queue.limit = 2 
 queue.enqueue(4) # ValueError: Cannot enqueue 4 to Queue as it is full.
 ```
