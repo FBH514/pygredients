@@ -1,8 +1,9 @@
+import unittest
 from unittest import TestCase
-from adapter_queue import AdapterQueue as Queue
+from queue import Queue as Queue
 
 
-class TestAdapterQueue(TestCase):
+class TestQueue(TestCase):
     """Tests the Queue data structure."""
 
     def setUp(self) -> None:
@@ -114,3 +115,7 @@ class TestAdapterQueue(TestCase):
         self.queue.dequeue()
         self.queue.dequeue()
         self.assertTrue(self.queue.is_empty())
+
+
+if __name__ == '__main__':
+    unittest.main()

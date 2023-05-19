@@ -1,3 +1,4 @@
+import unittest
 from unittest import TestCase
 from node import Node
 
@@ -38,3 +39,7 @@ class TestNode(TestCase):
         """
         self.assertTrue(self.one.next is None)
         self.assertTrue(self.two.next is self.one)
+
+
+if __name__ == '__main__':
+    unittest.main()

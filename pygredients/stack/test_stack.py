@@ -1,5 +1,6 @@
+import unittest
 from unittest import TestCase
-from adapter_stack import AdapterStack as Stack
+from stack import Stack as Stack
 
 
 class TestStack(TestCase):
@@ -113,3 +114,7 @@ class TestStack(TestCase):
         for _ in range(5):
             self.stack.pop()
         self.assertTrue(self.stack.is_empty())
+
+
+if __name__ == '__main__':
+    unittest.main()

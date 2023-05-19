@@ -1,8 +1,9 @@
+import unittest
 from unittest import TestCase
-from adapter_linkedlist import AdapterLinkedList as LinkedList
+from linkedlist import LinkedList as LinkedList
 
 
-class TestAdapterLinkedList(TestCase):
+class TestLinkedList(TestCase):
     """Tests the Linked List data structure."""
 
     def setUp(self) -> None:
@@ -114,3 +115,7 @@ class TestAdapterLinkedList(TestCase):
         self.linked_list.remove(2)
         self.linked_list.remove(1)
         self.assertTrue(self.linked_list.is_empty())
+
+
+if __name__ == '__main__':
+    unittest.main()
